@@ -466,7 +466,8 @@ var Module = {
     var l = Module.saveSnapshotData()[1];
     var s = new TextDecoder("latin1").decode(l);
 
-    var score = /\xae\xb0\xaf\xb1([0-9]{7})/.exec(s);
+    var score = /' ([0-9]{8})/.exec(s); 
+    console.log("Score", score);
     if (!score) {
       return;
     }
@@ -475,11 +476,7 @@ var Module = {
     if (score == 0) {
       return;
     }
-    Module.maybeSaveHighScoreGame(score);
-
-    var level = /\xb4([0-9]{2})/.exec(s)[1];
-    var energy = /‘“([0-9A-F]{1}[0-9A-F]{1})/.exec(s)[1];
-    console.log("Score", score, "Level", level, "Energy", energy);
+    Module.saveHighScoreGame(score);
 
     Module.saveGame(storageSnapshot);
 	},
